@@ -8,6 +8,10 @@ from django.contrib.auth import login
 from django.contrib import messages
 from django.shortcuts import render, redirect
 
+
+def land(request):
+    return render(request, 'landing.html')
+
 @login_required
 def main(request):
     user = request.user
