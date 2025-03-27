@@ -3,7 +3,7 @@ from .views import main, detail, create_note, delete_nnote, edit_note, login_use
 
 
 urlpatterns = [
-    path("", land, name='Landing page'),
+    path("", land, name="Landing page"),
     path("home/", main, name="main"),
     path("<int:note_id>/", detail, name="detail"),
     path("login", login_user, name="login_user"),

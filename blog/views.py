@@ -4,21 +4,22 @@ from .models import Blog
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, logout
-from django.contrib.auth import login
+from django.contrib.auth import login 
 from django.contrib import messages
 from django.shortcuts import render, redirect
 
 
 def land(request):
-    return render(request, 'landing.html')
+    posts = posts
+    return render(request, 'landing.html', {'posts': posts})
 
-@login_required
+
 def main(request):
     user = request.user
     posts = Blog.objects.filter(user=user)
     return render(request, 'index.html',  {'posts': posts})
 
-@login_required
+
 def detail(request, note_id):
     post = get_object_or_404(Blog, id=note_id)
     return render(request, "detail.html", {'post': post})
@@ -34,14 +35,14 @@ def create_note(request):
         return redirect("main")
     return render(request, 'detail.html')
 
-@login_required
+
 def delete_nnote(request, note_id):
     post = get_object_or_404(Blog, id=note_id)
     post.delete()
     return redirect("main")
 
 
-@login_required
+
 def edit_note(request, note_id):
     post = get_object_or_404(Blog, id=note_id)
     if request.method == "POST":
@@ -83,27 +84,4 @@ def logout_user(request):
     return redirect('login_user')
 
 
-# def create_user(request):
-    if request.method == "POST":
-        username = request.POST.get('username')
-        email = request.POST.get('email')
-        password1 = request.POST.get('password1')
-        password2 = request.POST.get('password2')
-        if password1 == password2:
-            user = User.objects.create (username= username,  email=email)
-            user.set_password(password1)
-            user.save()
-            return redirect('login_user')
-    return render(request, 'signup.html')
-     
 
-# def login_user(request):
-#     if request.method == "POST":
-#         username = request.POST.get('username')
-#         password = request.POST.get('password')
-#         user = authenticate(username=username, password=password)
-#         if user is not None:
-#             auth_login(request, user)
-#             return redirect('/main')
-#     return render(request, 'login.html', {'error': 'username or password is incorrect'})
-            
