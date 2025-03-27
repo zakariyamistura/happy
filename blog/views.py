@@ -10,7 +10,7 @@ from django.shortcuts import render, redirect
 
 
 def land(request):
-    posts = posts
+    posts = Blog.objects.all() 
     return render(request, 'landing.html', {'posts': posts})
 
 @login_required
