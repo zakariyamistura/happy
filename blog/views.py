@@ -10,10 +10,10 @@ from django.shortcuts import render, redirect
 
 
 def land(request):
-    posts = posts
+    posts = Blog.objects.all() 
     return render(request, 'landing.html', {'posts': posts})
 
-
+@login_required
 def main(request):
     user = request.user
     posts = Blog.objects.filter(user=user)
@@ -42,7 +42,7 @@ def delete_nnote(request, note_id):
     return redirect("main")
 
 
-
+@login_required
 def edit_note(request, note_id):
     post = get_object_or_404(Blog, id=note_id)
     if request.method == "POST":
